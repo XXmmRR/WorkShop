@@ -23,7 +23,7 @@ def get_operations(
     return service.get_list(kind=kind)
 
 
-@router.post('/', response_model=List[OperationCreate])
+@router.post('/', response_model=Operation)
 def create_operations(
     operation_data: OperationCreate,
     service: OperationsService = Depends(),
