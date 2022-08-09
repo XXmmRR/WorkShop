@@ -14,5 +14,8 @@ class Operation(BaseModel):
     id: int
     date: date
     kind: str
-    amount: Decimal
+    amount: float
     description: Optional[str]
+
+    class Config:
+        orm_mode = True
