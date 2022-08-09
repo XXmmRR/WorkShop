@@ -33,6 +33,16 @@ def create_operations(
 
 @router.get('/{operation_id}', response_model=Operation)
 def get_operation(operation_id: int,
-                  service: OperationsService = Depends()
-):
+                  service: OperationsService = Depends()):
     return service.get(operation_id)
+
+
+@router.put('/{operation_id}', response_model=Operation)
+def update_operation(
+        operation_id: int,
+        operation_data: OperationCreate,
+        service: OperationsService = Depends()):
+    service.update(
+        operation_id=operation_id,
+        operation_data=operation_data
+    )
