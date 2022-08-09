@@ -8,3 +8,6 @@ venv
 
 .gitignore
 /.gitignore
+
+database.sqlite
+db.sqlite
