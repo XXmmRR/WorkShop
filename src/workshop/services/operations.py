@@ -2,7 +2,7 @@ import fastapi
 
 from .. import tables
 from ..database import get_session
-from ..models.operations import OperationKing, OperationCreate
+from ..models.operations import OperationKing, OperationCreate, OperationUpdate
 from fastapi import Depends
 from sqlalchemy.orm import Session
 
@@ -22,6 +22,8 @@ class OperationsService:
             .filter_by(id=operation_id)
             .first()
         )
+        if not operation:
+            raise fastapi.HTTPException(status_code=fastapi.status.HTTP_404_NOT_FOUND)
         return operation
 
     def get_list(self,  kind: Optional[OperationKing] = None,) -> List[tables.Operation]:
@@ -42,9 +44,15 @@ class OperationsService:
         self.session.commit()
         return operation
 
-    def update(self, operation_id, operation_data):
+    def update(self, operation_id: int, operation_data: OperationUpdate):
         operation = self._get(operation_id=operation_id)
         for field, value in operation_data:
             setattr(operation, field, value)
         self.session.commit()
         return operation
+
+    def delete(self, operation_id: int):
+        operation = self._get(operation_id=operation_id)
+        self.session.delete(operation)
+        self.session.commit()
+        return Response(status_code=status.HTTP_204_NO_CONTENT)

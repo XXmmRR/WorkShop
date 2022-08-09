@@ -7,6 +7,8 @@ from ..models.operations import (Operation,
                                  OperationCreate)
 
 from fastapi import Depends
+from fastapi import Response
+from fastapi import status
 
 from ..services.operations import OperationsService
 
@@ -46,3 +48,9 @@ def update_operation(
         operation_id=operation_id,
         operation_data=operation_data
     )
+
+
+@router.delete('/{operation_id}')
+def delete_operation(operation_id: int, service: OperationsService = Depends()):
+    service.delete(operation_id)
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
