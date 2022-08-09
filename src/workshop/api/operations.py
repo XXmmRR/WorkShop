@@ -29,3 +29,10 @@ def create_operations(
     service: OperationsService = Depends(),
 ):
     return service.create(operation_data)
+
+
+@router.get('/{operation_id}', response_model=Operation)
+def get_operation(operation_id: int,
+                  service: OperationsService = Depends()
+):
+    return service.get(operation_id)

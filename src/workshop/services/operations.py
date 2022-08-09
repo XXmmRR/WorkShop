@@ -1,3 +1,5 @@
+import fastapi
+
 from .. import tables
 from ..database import get_session
 from ..models.operations import OperationKing, OperationCreate
@@ -18,7 +20,18 @@ class OperationsService:
         if kind:
             query = query.filter_by(kind=kind)
         operations = query.all()
+        if not operations:
+            raise fastapi.HTTPException(status_code=fastapi.status.HTTP_404_NOT_FOUND)
         return operations
+
+    def get(self, operation_id: int) -> tables.Operation:
+        operation = (
+            self.session
+            .query(tables.Operation)
+            .filter_by(id=operation_id)
+            .first()
+        )
+        return operation
 
     def create(self, operation_data: OperationCreate) -> tables.Operation:
         operation = tables.Operation(**operation_data.dict())
