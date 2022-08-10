@@ -3,3 +3,4 @@ unicorn
 pydantic
 python-dotenv
 sqlalchemy
+sqladmin
