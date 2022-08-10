@@ -55,4 +55,3 @@ class OperationsService:
         operation = self._get(operation_id=operation_id)
         self.session.delete(operation)
         self.session.commit()
-        return Response(status_code=status.HTTP_204_NO_CONTENT)
