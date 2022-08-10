@@ -3,8 +3,8 @@ from typing import List, Optional
 
 from ..models.operations import (Operation,
                                  OperationKing,
-                                 OperationBase,
-                                 OperationCreate)
+                                 OperationCreate,
+                                 OperationUpdate)
 
 from fastapi import Depends
 from fastapi import Response
@@ -42,11 +42,11 @@ def get_operation(operation_id: int,
 @router.put('/{operation_id}', response_model=Operation)
 def update_operation(
         operation_id: int,
-        operation_data: OperationCreate,
+        operation_data: OperationUpdate,
         service: OperationsService = Depends()):
     service.update(
         operation_id=operation_id,
-        operation_data=operation_data
+        operation_data=operation_data,
     )
 
 
