@@ -6,4 +6,5 @@ class Settings(BaseSettings):
     server_port: int = 8000
     database_url: str = 'sqlite:///./database.sqlite'
 
+
 settings = Settings()

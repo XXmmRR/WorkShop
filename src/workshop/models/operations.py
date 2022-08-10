@@ -1,7 +1,6 @@
 from pydantic import BaseModel
 from datetime import date
 from typing import Optional
-from decimal import Decimal
 from enum import Enum
 
 
